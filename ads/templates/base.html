@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>BarterApp</title>
+</head>
+<body>
+    <header>
+        <h1><a href="/">BarterApp</a></h1>
+        {% if user.is_authenticated %}
+            <p>Вы вошли как {{ user.username }}</p> 
+            <nav>
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background:none;border:none;padding:0;color:#00f;cursor:pointer;text-decoration:underline;">
+                        Выйти
+                    </button>
+                </form> |
+                <a href="{% url 'user_ads' %}">Мои объявления</a> |
+                <a href="{% url 'proposal_list' %}">Мои обмены</a> |
+                <a href="{% url 'notifications' %}">Уведомления
+                {% if unread_notifications_count > 0 %}
+                    <span style="background: red; color: white; padding: 2px 6px; border-radius: 50%; font-size: 12px;">
+                    {{ unread_notifications_count }}
+                    </span>
+                {% endif %}
+                </a>|
+                <a href="{% url 'create_ad' %}">Добавить объявление</a> |
+                <a href="{% url 'ad_list' %}">Смотреть объявления</a>
+            </nav>
+        {% else %}
+            <nav>
+                <a href="{% url 'login' %}">Войти</a> |
+                <a href="{% url 'register' %}">Регистрация</a>
+            </nav>
+        {% endif %}
+        <hr>
+    </header>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Уведомления</h2>
+  <ul>
+    {% for n in notifications %}
+      <li {% if not n.is_read %} style="font-weight: bold;" {% endif %}>
+        {{ n.message }} ({{ n.created_at|date:"d.m.Y H:i" }})
+      </li>
+    {% empty %}
+      <li>Уведомлений нет.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

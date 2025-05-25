@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+h2 {
+  color: #2c3e50;
+}
+
+form.filters input[type="text"],
+form.filters select {
+  padding: 6px 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form.filters button {
+  background-color: #2980b9;
+  border: none;
+  color: white;
+  padding: 7px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+form.filters button:hover {
+  background-color: #3498db;
+}
+
+.pagination a {
+  margin: 0 5px;
+  color: #2980b9;
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  text-decoration: underline;
+}
+
+div.ad-item {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+  margin-bottom: 20px;
+}
+
+div.ad-item img {
+  max-width: 300px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+div.ad-item h3 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+div.ad-item p.description {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 10px;
+}

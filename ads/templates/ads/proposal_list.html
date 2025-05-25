@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Предложения обмена</h2>
+
+<h2>Полученные предложения</h2>
+{% for proposal in received_proposals %}
+  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+    <p><strong>От кого:</strong> {{ proposal.from_user.username }}</p>
+    <p><strong>На ваше объявление:</strong> {{ proposal.ad_sender.title }}</p>
+    <p><strong>Комментарий:</strong> {{ proposal.comment }}</p>
+    <p><strong>Статус:</strong>
+      {% if proposal.status == 'pending' %}
+        В ожидании
+      {% elif proposal.status == 'accepted' %}
+        Принято ✅
+      {% else %}
+        Отклонено ❌
+      {% endif %}
+    </p>
+    {% if proposal.status == 'pending' %}
+      <a href="{% url 'accept_proposal' proposal.pk %}">Принять</a> |
+      <a href="{% url 'reject_proposal' proposal.pk %}">Отклонить</a>
+    {% endif %}
+  </div>
+{% empty %}
+  <p>Нет входящих предложений.</p>
+{% endfor %}
+
+<hr>
+
+<h2>Отправленные предложения</h2>
+{% for proposal in sent_proposals %}
+  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+    <p><strong>Кому:</strong> {{ proposal.ad_sender.user.username }}</p>  {# Владелец объявления, на которое отправлено предложение #}
+    <p><strong>Вы предложили:</strong> {{ proposal.ad_receiver.title }}</p>  {# Ваше объявление #}
+    <p><strong>Комментарий:</strong> {{ proposal.comment }}</p>
+    <p><strong>Статус:</strong>
+      {% if proposal.status == 'pending' %}
+        В ожидании
+      {% elif proposal.status == 'accepted' %}
+        Принято ✅
+      {% else %}
+        Отклонено ❌
+      {% endif %}
+    </p>
+  </div>
+{% empty %}
+  <p>Нет отправленных предложений.</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Предложить обмен: {{ ad_receiver.title }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Отправить предложение</button>
+  </form>
+
+  <a href="{% url 'ad_list' %}">← Назад к объявлениям</a>
+{% endblock %}

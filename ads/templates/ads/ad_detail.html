@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ ad.title }}</h2>
+  <p><strong>Описание:</strong> {{ ad.description }}</p>
+  <p><strong>Категория:</strong> {{ ad.category }}</p>
+  <p><strong>Дата:</strong> {{ ad.created_at }}</p>
+  <p><strong>Владелец:</strong> {{ ad.user.username }}</p>
+  {% if ad.image %}
+    <img src="{{ ad.image.url }}" alt="Фото" style="max-width: 300px;">
+  {% endif %}
+
+{% if request.user.is_authenticated and request.user != ad.user %}
+    {% if existing_proposal %}
+        <p style="color: gray; font-style: italic;">Ожидает подтверждения</p>
+    {% else %}
+        <a href="{% url 'create_proposal' ad.pk %}" class="btn btn-primary">Предложить обмен</a>
+    {% endif %}
+{% endif %}
+
+{% endblock %}

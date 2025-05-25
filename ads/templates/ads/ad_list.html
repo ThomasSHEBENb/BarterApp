@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Объявления</h2>
+
+  <form method="get" class="filters">
+    <input type="text" name="q" placeholder="Поиск..." value="{{ q|default:'' }}">
+    <select name="category">
+      <option value="">Все категории</option>
+      {% for key,label in CATEGORY_CHOICES %}
+        <option value="{{ key }}" {% if selected_category == key %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <select name="condition">
+      <option value="">Любое состояние</option>
+      {% for key,label in CONDITION_CHOICES %}
+        <option value="{{ key }}" {% if selected_condition == key %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Применить</button>
+  </form>
+
+  {% for ad in page_obj %}
+  <div class="ad-item">
+    {% if ad.image %}
+      <img src="{{ ad.image.url }}" alt="{{ ad.title }}" width="200">
+    {% endif %}
+    <h3>{{ ad.title }}</h3>
+    <p class="description">{{ ad.description }}</p>
+    <p>Автор: {{ ad.user.username }}</p>
+    {% if request.user.is_authenticated and ad.user != request.user %}
+      <a href="{% url 'create_proposal' ad.id %}">Предложить обмен</a>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?{% if q %}q={{ q }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}{% if selected_condition %}condition={{ selected_condition }}&{% endif %}page={{ page_obj.previous_page_number }}">« Назад</a>
+    {% endif %}
+    <span>Стр. {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?{% if q %}q={{ q }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}{% if selected_condition %}condition={{ selected_condition }}&{% endif %}page={{ page_obj.next_page_number }}">Вперёд »</a>
+    {% endif %}
+  </div>
+{% endblock %}

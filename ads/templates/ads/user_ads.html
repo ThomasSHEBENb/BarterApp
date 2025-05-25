@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Мои объявления</h2>
+<ul>
+    {% for ad in ads %}
+        <li>
+            <strong>{{ ad.title }}</strong> — {{ ad.condition }} <br>
+            {{ ad.description }}<br>
+            {% if ad.image %}
+                <img src="{{ ad.image.url }}" alt="{{ ad.title }}" width="200">
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>У вас пока нет объявлений.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

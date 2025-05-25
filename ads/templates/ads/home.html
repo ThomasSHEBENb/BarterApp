@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Добро пожаловать в BarterApp!</h1>
+  <p>Здесь вы можете обмениваться вещами с другими пользователями.</p>
+
+  <ul>
+    <li><a href="{% url 'ad_list' %}">Смотреть все объявления</a></li>
+    <li><a href="{% url 'create_ad' %}">Создать объявление</a></li>
+    <li><a href="/admin/">Админ-панель</a></li>
+  </ul>
+{% endblock %}
